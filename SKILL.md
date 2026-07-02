@@ -3,7 +3,7 @@ name: industry-chain-research
 description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」Design-by-Contract 思想 + harrischen/invest 多因子评分 + zhangmusinb/gushifenxi 深度研究方法,形成「周期 × 缺口 × 政策」三角定位法的独特方法论。每段输入=上段产物,实现"结论=证据"的全链路对齐。包含三层价值量(成本/利润/瓶颈)、三类缺口(瓶颈/增量/国产替代/新需求)、反证条件、跟踪指标。聚焦 A 股 + 港股 + 美股产业链投研。
 ---
 
-# 产业链深度研究 Skill · 8 段对齐(2026-07-02 升级)
+# 产业链深度研究 Skill · 8+1 段对齐(2026-07-02 v3.2 升级)
 
 > 灵感来源:
 > 1. 微信公众号「爱AI的大刘」《齐码.SKILL》(2026-06)— 6 段对齐架构
@@ -26,7 +26,7 @@ description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」D
 | 缺反证 | 单向看好,缺乏证伪 | chain-verify + 全程反证前置 |
 | 结论不稳定 | 同样的研究换个时间出不同结论 | 「周期 × 缺口 × 政策」三角定位法 |
 
-## 📐 8 段对齐架构(2026-07-02 升级:新增周期段 + 政策方法论)
+## 📐 8+1 段对齐架构(2026-07-02 升级:新增周期段 + chip-design 子段 + 政策方法论)
 
 ```
      ┌─────────────────┐
@@ -38,6 +38,12 @@ description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」D
      │  chain-data      │ ② 上中下游 + 三端 + 周期性数据
      │  +三端+周期数据  │   (借鉴 gushifenxi)
      └──────┬───────────┘
+            ▼
+     ┌────────────────────┐
+     │ chain-chip-design  │ ②.5 工艺路线 + 衬底设备 + 良率爬升
+     │ +chip-design(可选)│   (本 skill 独创 — 半导体/光芯片强相关)
+     │ ★ 产业链图生成    │   mermaid.js 内嵌 HTML,每环节标 A 股龙头
+     └──────┬─────────────┘
             ▼
      ┌────────────────────┐
      │ chain-breakdown    │ ③ 4 维评分 + 三类缺口 + 周期位置
@@ -96,6 +102,7 @@ description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」D
 | 0 | **总纲**(本文件) | 调度指令 | 用户提问 | 哪一段被激活 | - |
 | 1 | **chain-idea** | idea.md | 用户模糊问题 | 三问法 + 口径拆分 + 11 词法 + **周期/政策前置** | ✅ |
 | 2 | **chain-data** | data.md | idea.md | 上中下游 + 材料/设备/工艺三端 + **周期性数据** | ✅ |
+| 2.5 | **chain-chip-design**(可选) | chip-design.md + 产业链图 HTML | data.md | **device physics 工艺路线 + 良率爬升 + 下一代路径 + mermaid 图** | ⚠️ 半导体/光芯片/化合物半导体必跑 |
 | 3 | **chain-breakdown** | breakdown.md | data.md | 4 维评分 + 三类缺口 + **周期位置** | ✅ |
 | 4 | **chain-cycle**(可选) | cycle.md | breakdown.md | **6 类周期指标 + 拐点预测** | ⚠️ 强周期必跑 |
 | 5 | **chain-analysis** | analysis.md | breakdown + cycle | 三层价值量 + 微笑曲线 + 利润转移 + 周期影响 | ✅ |
@@ -257,13 +264,18 @@ description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」D
 - `templates/stockmap.md.template` — chain-stockmap(含周期评分)
 - `examples/fluorine-case/` — 氟化工完整 7 段样本(弱周期)
 - `examples/pig-case/` — 猪肉完整 8 段样本(强周期 + chain-cycle)
+- `examples/innovative-drug-case/` — 创新药完整 8 段样本(政策 + 出海)
+- `examples/optical-module-case/` — 光模块产业链(2026-07-02 实战,11 只 A 股已核验 ★ 含产业链图)
+- `examples/eml-substitution-case/` — EML 国产替代深度(2026-07-02 实战,3 只 A 股已核验 ★ 含工艺路线)
+- `examples/eml-chip-design-case/` — EML chip-design 工艺路线卡片(本 skill v3.2 新增)
 
 ## 🆕 演进路线
 
 - **v1 (2026-07-01)**:6 段对齐架构 + 借鉴基础
 - **v2 (2026-07-02)**:7 段(新增 chain-stockmap)+ 借鉴落地 + 氟化工案例
 - **v3 (2026-07-02)**:8 段(新增 chain-cycle)+ 三角定位法 + 猪肉案例 + 创新药案例
-- **v3.1 (2026-07-02)**:★ 新增「格式选择卡」末段交付(report.md → HTML/DOCX 二选一)← **当前**
+- **v3.1 (2026-07-02)**:★ 新增「格式选择卡」末段交付(report.md → HTML/DOCX 二选一)
+- **v3.2 (2026-07-02)**:★ 新增「chain-chip-design」工艺路线子段(device physics 拆解 + 良率爬升 + mermaid 产业链图)+ 光模块 + EML 国产替代双案例完整跑通 ← **当前**
 - **v4 预研方向**:
   - fetch_stock.py 接港股 18A API(fetch_hk_stock.py)
   - LLM-driven 周期拐点预测

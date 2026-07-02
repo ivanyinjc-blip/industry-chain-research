@@ -331,3 +331,36 @@ MIT License — 详见 [LICENSE](LICENSE) 文件。
 ---
 
 **— 由 industry-chain-research skill 团队 2026-07 开源 · 改编自「齐码.SKILL」by 爱AI的大刘**
+
+---
+
+## 🆕 v3.2 更新(2026-07-02)
+
+新增**第 2.5 段 `chain-chip-design`**(工艺路线分析子段),聚焦 device physics 拆解:
+
+- **五钻探针**:工艺 + 衬底 + 设备 + 下一代 + 良率
+- **mermaid.js 产业链图生成器**:`scripts/draw_chain.py`
+- **实战案例**:`examples/optical-module-case/` + `examples/eml-substitution-case/`
+
+### 4 张产业链图(单击 HTML 即看)
+
+```bash
+python3 chain-chip-design/scripts/draw_chain.py all_in_one diagram.html
+```
+
+生成 4 张图(单文件 HTML,mermaid.js CDN):
+
+1. **光模块产业链全景** — 上中下游 + 每个环节 A 股龙头
+2. **EML 国产替代链路** — InP 衬底 + MOCVD + 芯片 → 模块厂
+3. **EML 工艺分代路线** — 2020 → 2024 → **2026(主流)** → 2028(异质集成)
+4. **EML 国产化时间表 Gantt** — 25G ✓ / 50G 2026 H2 / 100G 2027 / 硅光 2027
+
+### 关键实战数据(已核验)
+
+| 数据 | 数值 | 含义 |
+|---|---|---|
+| 源杰科技 2026Q1 YoY 净利 | **+1153%** | EML 5-20% 阶段实证 ★ |
+| 源杰科技 毛利率 | **77.81%** | **超国际同行**(Lumentum 50-55%) |
+| 中际旭创 YoY 净利 | **+262%** | 800G 龙头规模壁垒 |
+| 新易盛 YoY 营收 | **+106%** | 1.6T 首发 |
+

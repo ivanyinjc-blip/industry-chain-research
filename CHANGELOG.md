@@ -24,6 +24,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **创新药案例** v1:纳微 / 药明 / 恒瑞 / 键凯 4 只强烈推荐(PE 10.44 罕见低估)
 - **85 个真实 API 调用** 全部 OK(4 接口 × 21 只股票)
 
+
+
+## [3.2.0] - 2026-07-02
+
+### Added · 新增
+- ★ **chain-chip-design 模块**(第 2.5 段 · 工艺路线分析段):device physics 拆解 + 5 钻探针(工艺 + 衬底 + 设备 + 下一代 + 良率)
+  - SKILL.md(方法论 + 适用场景)
+  - templates/chip-design.md.template(7 个章节模板)
+  - scripts/draw_chain.py(mermaid.js 内嵌 HTML 产业链图生成器)
+  - examples/eml-25g/ + examples/eml-route/(EML 工艺路线卡片)
+- ★ **产业链全景图生成器**:draw_chain.py 支持 4 种图(光模块全景 / EML 国产替代链 / 工艺分代路线 / 国产化 Gantt 时间表),每张图每个环节标注 A 股龙头
+- ★ **光模块产业链实战案例**:`examples/optical-module-case/`(8 段全跑,11 只 A 股已核验 · 含产业链图)
+- ★ **EML 国产替代深度案例**:`examples/eml-substitution-case/`(8 段全跑,3 只 A 股已核验 · 源杰 +1153% YoY 实证 5-20% 阶段)
+
+### Changed · 升级
+- **SKILL.md 升级到 v3.2**:**8+1 段对齐**(原 8 段 + 新增 chain-chip-design 2.5 段)
+- 模块表新增行 2.5:`chain-chip-design`(半导体/光芯片/化合物半导体必跑)
+- 演进路线新增 `v3.2 (2026-07-02)`
+- 案例列表新增:`optical-module-case` / `eml-substitution-case`
+
+### Tested · 验证
+- 85+ API 真实调用 × 14 只 A 股已核验(光模块 11 + EML 3 + 长光)
+- 关键数据:源杰科技 2026Q1 YoY 净利 **+1153%** + 毛利率 **77.81%**(超国际同行)
+- 4 张产业链图用 mermaid.js v10.9 CDN 渲染验证
+
 ## [3.0.0] - 2026-07-02
 
 ### Added · 新增
