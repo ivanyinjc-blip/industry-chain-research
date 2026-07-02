@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+
+# 测试产物
+test_output/
+*.html
+*.docx
+!templates/*.template
+!docs/**/*.html
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# 数据(避免误提交)
+data/raw/
+data/clean/*.csv
+data/clean/*.xlsx
+*.log
+
+# 个人
+*.bak
+*.tmp
