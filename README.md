@@ -4,8 +4,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![v3.4.0](https://img.shields.io/badge/version-v3.4.0-blue)](https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.4.0)
 [![8-Segment Pipeline](https://img.shields.io/badge/8--Segment-Pipeline-success)]()
 [![Cycle-Aware](https://img.shields.io/badge/Cycle--Aware-orange)]()
+[![Chip-Design v3.2](https://img.shields.io/badge/Chip--Design-v3.2-purple)]()
+[![Bootstrap Icons](https://img.shields.io/badge/Icons-Bootstrap-7952B3)](https://icons.getbootstrap.com/)
 
 **`industry-chain-research`** 是一个面向 A 股 / 港股 / 美股产业链投研的 Claude skill,把"模糊研究问题"变成"立得住、还够狠、可核销"的产业链研究报告。
 
@@ -363,4 +366,79 @@ python3 chain-chip-design/scripts/draw_chain.py all_in_one diagram.html
 | 源杰科技 毛利率 | **77.81%** | **超国际同行**(Lumentum 50-55%) |
 | 中际旭创 YoY 净利 | **+262%** | 800G 龙头规模壁垒 |
 | 新易盛 YoY 营收 | **+106%** | 1.6T 首发 |
+
+
+---
+
+## 🆕 v3.3 更新(2026-07-03)
+
+**PIL 产业链图生成器** — 把 mermaid.js 升级为高保真 PNG:
+
+- **`chain-chip-design/scripts/draw_chain_v2.py`** — PIL + cairosvg 高保真(1920×1080)
+- **18 个 SVG 图标库**:`icon_lib.py`(替代 emoji,跨平台一致)
+- **设计语言沉淀**:`chain-chip-design/SKILL.md` 新增「产业链图生成系统」章节
+- **实战图 2 张**:光模块 + EML 国产替代
+
+---
+
+## 🆕 v3.4 更新(2026-07-03)· 当前版本 ★
+
+**Bootstrap Icons + 立体光圈** — 视觉对标麦肯锡 / Bloomberg 风格:
+
+### 升级内容
+
+1. **`icon_lib.py` 从自画几何 SVG → 19 个 Bootstrap Icons v1.x 实心版**
+   - MIT license · 2000+ 图标库可选
+   - CDN 自动下载 + 本地缓存(`~/.cache/bootstrap-icons/`)
+   - jsdelivr CDN 取代 raw.githubusercontent.com(解决限速)
+
+2. **`draw_chain_v2.py draw_icon_circle` 立体质感版**
+   - 深色描边 + 2 层浅灰阴影(模拟凸起)
+   - 18 圈同心圆径向彩色光圈(中心 alpha `0x70` → 边缘 `0x10`)
+   - 65% 大号白色实心图标叠在光圈上(类似 app 图标高光)
+
+### 视觉对比
+
+| 维度 | v3.3 | v3.4 |
+|---|---|---|
+| 图标风格 | 几何描边 · 工程师风 | 工业实心 · 麦肯锡风 |
+| 立体感 | 0 分 | ★★★★☆ |
+| 图标库 | 18 个手画 | 19 个 Bootstrap(2000+ 可选) |
+| 加新产业链图标成本 | 30 min(手画)| 0 min(改一行 `ICON_MAP`)|
+
+### 4 张 demo 图(直接看效果)
+
+| 案例 | v4(几何风)| v5(立体光圈)|
+|---|---|---|
+| 光模块产业链全景 | [optical-module-v4.png](chain-chip-design/docs/images/optical-module-v4.png) | [optical-module-v5.png](chain-chip-design/docs/images/optical-module-v5.png) |
+| EML 国产替代 | — | [eml-substitution-v5.png](chain-chip-design/docs/images/eml-substitution-v5.png) |
+| 图标局部放大(看光圈细节)| — | [icon-zoom-v5.png](chain-chip-design/docs/images/icon-zoom-v5.png) |
+
+### 一键生成
+
+```bash
+# 光模块产业链图(1920×1080 PNG,带 Bootstrap Icons + 立体光圈)
+python3 chain-chip-design/scripts/draw_chain_v2.py \
+    optical_module /tmp/output/optical.png
+
+# EML 国产替代图
+python3 chain-chip-design/scripts/draw_chain_v2.py \
+    eml_substitution /tmp/output/eml.png
+```
+
+### 复用成本对比
+
+| 场景 | v3.3 | v3.4 |
+|---|---|---|
+| 加 1 个新产业链 | 手画 SVG(30 min)| 改 1 行 `ICON_MAP`(0 min) |
+| 换风格主题 | 改 18 个 SVG | 改 `DS['blue']` 一个色 |
+| 加更多图标 | 写新 SVG | Bootstrap Icons 2000+ 现成 |
+
+### 待办 / v4 预研
+
+- [ ] DALL-E 写实大图(光模块实物 / 数据中心照片)
+- [ ] 多语言切换(中/英/日)
+- [ ] 暗色模式 / 暖色 / 冷色 多主题
+
+详细说明见:[chain-chip-design/SKILL.md · 产业链图生成系统](chain-chip-design/SKILL.md)
 
