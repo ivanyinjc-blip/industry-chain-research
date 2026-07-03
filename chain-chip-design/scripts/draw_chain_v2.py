@@ -138,14 +138,34 @@ def draw_shadow_card(draw, x, y, w, h, radius=DS['card_radius']):
 
 
 def draw_icon_circle(im, draw, x, y, size, icon_name, color=DS['blue']):
-    """画圆形图标底 + SVG 图标。要求调用方传入主 Image(im)用于 paste。"""
-    # 白色圆
-    draw.ellipse([x, y, x + size, y + size], fill='#FFFFFF',
-                 outline=DS['card_border'], width=1)
-    # SVG 图标(65% of size)
+    """画圆形图标底 + SVG 图标 · 立体质感版(参考图风格)
+    - 外圈描边
+    - 彩色径向光圈(从外到内颜色加深)
+    - 大号 Bootstrap 实心图标(更醒目)
+    """
+    # === 1. 外圈描边(深色) ===
+    # 阴影
+    for offset in range(2, 0, -1):
+        draw.ellipse([x + offset, y + offset, x + size + offset, y + size + offset],
+                     fill=(220, 225, 232))
+    # 主体白圆
+    draw.ellipse([x, y, x + size, y + size],
+                 fill='#FFFFFF', outline=color, width=2)
+
+    # === 2. 径向彩色光圈(更明显) ===
+    cx, cy = x + size // 2, y + size // 2
+    max_r = int(size // 2) - 4
+    # 18 圈同心圆,中心 alpha 0x60,边缘 alpha 0x10
+    for r in range(max_r, max_r - 20, -1):
+        ratio = (max_r - r) / 20
+        alpha = int(0x10 + (0x70 - 0x10) * ratio)
+        c = color + format(alpha, '02x')
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=c)
+
+    # === 3. 大号彩色实心图标 ===
     icon_size = int(size * 0.65)
     from icon_lib import icon_svg
-    svg_str = icon_svg(icon_name, size=icon_size, color=color)
+    svg_str = icon_svg(icon_name, size=icon_size, color='#FFFFFF')
     if svg_str and im is not None:
         icon_im = svg_to_pil(svg_str, icon_size)
         if icon_im.mode != 'RGBA':

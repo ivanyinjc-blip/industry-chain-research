@@ -26,25 +26,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-## [3.3.0] - 2026-07-03
+## [3.4.0] - 2026-07-03
 
 ### Added · 新增
-- ★ **PIL 产业链图生成器 v2**:`chain-chip-design/scripts/draw_chain_v2.py`(高保真 · 1920×1080 · 阴影卡片 · 渐变 header · 三栏布局)
-- ★ **18 个 SVG 图标库**:`chain-chip-design/scripts/icon_lib.py`(完全替代 emoji,跨平台一致 · chip/pcb/optic/housing/fiber/datacenter/ai/...)
-- ★ **EMOJI_TO_ICON 映射**:旧代码 emoji → SVG 图标的兼容垫片
-- ★ **设计语言沉淀**:`chain-chip-design/SKILL.md` 新增「产业链图生成系统」章节(设计 tokens · API · 复用步骤 · 故障排查)
-- ★ **2 张 v4 实战图**:光模块 / EML 国产替代(已发飞书用户确认效果)
+- ★ **icon_lib 升级到 Bootstrap Icons v1.x**:`chain-chip-design/scripts/icon_lib.py`(MIT license · 19 个图标 · 自动下载 + 本地缓存 `~/.cache/bootstrap-icons/`)
+- ★ **径向彩色光圈**:`draw_icon_circle` 新增 18 圈同心圆径向渐变(中心 alpha 0x70 → 边缘 alpha 0x10)
+- ★ **立体描边阴影**:深色描边 + 浅灰阴影,模拟参考图的"凸起实心"质感
+- ★ **设计语言沉淀**:chain-chip-design/SKILL.md 新增 Bootstrap Icons 映射说明 + 升级理由
 
 ### Changed · 升级
-- **SKILL.md 升级到 v3.3**:总纲新增 v3.3 行 + 演进路线更新
-- **cairosvg 渲染管线**:PIL 画布 + cairosvg.svg2png(bytestring) → BytesIO → Image.open
-- **字体路径显式化**:`/home/ivanyinjc/.fonts/wqy-microhei.ttc`(避免 macOS/Linux fallback)
-- **draw_icon_circle 签名修复**:新增 `im` 形参(原传 None 导致 AttributeError)
+- **icon_lib.py 重写**:从 19 个自画几何 SVG → 19 个 Bootstrap Icons fill 版(cpu-fill / motherboard-fill / cloud-fill / robot ...)
+- **draw_icon_circle 重构**:白色圆 + 单一图标 → 描边阴影 + 径向光圈 + 大号白色实心图标
+- **cdn.jsdelivr.net 取代 raw.githubusercontent.com**:GitHub raw 限速问题解
+- **SKILL.md 升级到 v3.4**:总纲新增 v3.4 行 + 演进路线
 
 ### Tested · 验证
-- 2 张图全部成功(optical-module-v4.png 232 KB · eml-substitution-v4.png 215 KB)
-- 中文渲染 100% 正确(无 □□)
-- 18 个图标在 PNG 中正常显示(无 fallback)
+- optical-module-v5c.png (239 KB · 19 个 Bootstrap 图标全部生效)
+- eml-substitution-v5.png (218 KB · 中下游光圈效果显著)
+- 用户确认接受"立体实心"风格
+
+## [3.3.0] - 2026-07-03
 
 ## [3.2.0] - 2026-07-02
 
@@ -101,6 +102,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **四度评分**:流变重构 / 成本坍缩 / 人即环境 / 可验证黑盒
 
 [3.3.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.3.0
+[3.4.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.4.0
 [3.1.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.1.0
 [3.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.0.0
 [2.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v2.0.0

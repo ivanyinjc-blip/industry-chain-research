@@ -170,36 +170,50 @@ description: 产业链研究 chip-design 子段 · 深度工艺路线分析。�
 chain-chip-design/
 ├── SKILL.md                           ← 本文件
 ├── scripts/
-│   ├── icon_lib.py                    ← 18 个 SVG 图标(替代 emoji)
-│   └── draw_chain_v2.py               ← 主图生成器(PIL)
+│   ├── icon_lib.py                    ← 19 个 Bootstrap Icons 实心版(MIT · CDN 自动缓存)
+│   └── draw_chain_v2.py               ← 主图生成器(PIL + 立体光圈)
 └── templates/
     └── chip-design.md.template
 ```
 
-### icon_lib.py(18 个 SVG 图标)
+### icon_lib.py(19 个 Bootstrap Icons 实心版 · v3.4 升级)
 
-跨平台一致的纯几何 SVG 图标库,**完全替代 emoji**(emoji 在 Linux/PNG 渲染时容易出 □□)。
+**v3.4 重要升级**:从自画几何 SVG 改为 Bootstrap Icons v1.x(MIT license · 2000+ 图标 · 实心 fill 版)。
+
+跨平台一致 + 自动下载 + 本地缓存(`~/.cache/bootstrap-icons/`)。
+完全替代 emoji,接近 Fluent 2 实心风的视觉冲击力。
 
 ```python
-from icon_lib import icon_svg, EMOJI_TO_ICON
+from icon_lib import icon_svg, ICON_NAMES, EMOJI_TO_ICON
 
 # 单个图标
 svg_str = icon_svg('chip', size=32, color='#2F80ED')
 
+# 列出所有图标名(19 个)
+print(ICON_NAMES)
+# ['chip', 'pcb', 'optic', 'housing', 'fiber', 'material',
+#  'flow', 'doc', 'design', 'components', 'integrate', 'test', 'ship',
+#  'datacenter', 'telecom', 'cloud', 'ai', 'arrow_right', 'check']
+
 # emoji → 图标映射(用于旧代码兼容)
 EMOJI_TO_ICON = {
-    '💡': 'lightbulb',  '📌': 'pin',     '✓': 'check',
-    '🔧': 'wrench',     '📊': 'chart',   '🚀': 'rocket',
+    '💡': 'fiber', '🔬': 'optic', '🧩': 'pcb',
+    '🖥️': 'datacenter', '📡': 'telecom', '☁️': 'cloud', '🤖': 'ai',
     ...
 }
 ```
 
-图标清单:
-- **设备类**:chip(芯片), pcb(电路板), housing(外壳), fiber(光纤)
-- **光学类**:optic(光器件), material(材料)
-- **流程类**:flow, doc, design, components, integrate, test, ship
-- **场景类**:datacenter(数据中心), telecom(电信), cloud(云), ai(人工智能)
-- **辅助类**:arrow_right, check
+图标清单(19 个 · Bootstrap Icons 映射):
+- **设备类**:chip→cpu-fill, pcb→motherboard-fill, housing→box-seam-fill, fiber→hdd-stack-fill, material→stack
+- **光学类**:optic→optical-audio-fill
+- **流程类**:flow→diagram-3-fill, doc→file-earmark-text-fill, design→easel-fill, components→puzzle-fill, integrate→diagram-3-fill, test→beaker-fill, ship→truck
+- **场景类**:datacenter→hdd-rack-fill, telecom→broadcast, cloud→cloud-fill, ai→robot
+- **辅助类**:arrow_right→arrow-right, check→check-circle-fill
+
+**为什么从自画 SVG 升级到 Bootstrap Icons**
+1. 视觉更接近参考图(实心 + 立体)而不是工程师风(描边 + 几何)
+2. 2000+ 现成图标覆盖所有产业链节点,不需要每个新链都手画
+3. MIT 商用免费 · 跨平台一致 · 像素级 sharp
 
 ### draw_chain_v2.py(主图生成器)
 
@@ -246,7 +260,7 @@ draw_gradient_header(d, x, y, w, h, c1, c2) # 水平渐变 header
 draw_shadow_card(d, x, y, w, h, r=6)        # 阴影卡片
 draw_shadow_card_green(d, x, y, w, h, r=6)  # 绿色阴影卡片
 draw_shadow_card_red(d, x, y, w, h, r=6)    # 红色卡脖子卡片
-draw_icon_circle(im, d, x, y, size, name, c)# 圆形图标 + SVG
+draw_icon_circle(im, d, x, y, size, name, c)# 圆形图标 + 立体光圈(径向渐变 + 白色实心)
 card_template(im, d, x, y, w, h, icon, name, desc, stocks, color)
                                             # 通用卡片(上游/下游)
 ```
