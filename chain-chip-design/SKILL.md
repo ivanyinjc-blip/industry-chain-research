@@ -128,3 +128,144 @@ description: 产业链研究 chip-design 子段 · 深度工艺路线分析。�
 - **给 chain-breakdown**: 工艺路线表 + 良率基线 + 卡点明细
 - **给 chain-stockmap**: device-level 国产化率 + 公司工艺卡位 + 量价齐升预测
 
+---
+
+## 🖼️ 产业链图生成系统(PIL · 高保真 · 2026-07-03 升级)
+
+> 用户对 v3 的视觉风格已认可(16:9, #0B3A82 标题, 三栏布局, 蓝绿配色)。本节沉淀为可复用技能。
+
+### 设计语言(Design Tokens)
+
+```
+画布      :1920×1080 (16:9)
+背景      :#FFFFFF 纯白
+标题色    :#0B3A82  深蓝
+副标题    :#6B7B91  灰
+主蓝      :#2F80ED  / 深蓝 #1E5BB8
+青色辅    :#00B8D9
+下游绿    :#22C55E  / 深绿 #16A34A
+卡片底    :#FAFBFD  / 绿色 #F0FDF4
+卡片描边  :#E6EDF5  1px
+介绍框    :#EFF6FF  + #BFDBFE 边
+圆角      :6-8 px
+字体      :WenQuanYi Micro Hei(macOS/Linux 一致)
+```
+
+### 三栏布局(主图通用)
+
+```
+┌──────────┬──────────┬──────────┐
+│  上游蓝  │  中游蓝  │  下游绿  │
+│  ──────  │  ──────  │  ──────  │
+│  卡片×N  │  步骤×N  │  卡片×N  │
+│  龙头×N  │  龙头×N  │  龙头×N  │
+└──────────┴──────────┴──────────┘
+     ┌──── intro 介绍框(蓝色 light)────┐
+     ┌──── 总结 ────┬──── 投资要点 ────┬── QR ──┐
+```
+
+### 文件结构
+
+```
+chain-chip-design/
+├── SKILL.md                           ← 本文件
+├── scripts/
+│   ├── icon_lib.py                    ← 18 个 SVG 图标(替代 emoji)
+│   └── draw_chain_v2.py               ← 主图生成器(PIL)
+└── templates/
+    └── chip-design.md.template
+```
+
+### icon_lib.py(18 个 SVG 图标)
+
+跨平台一致的纯几何 SVG 图标库,**完全替代 emoji**(emoji 在 Linux/PNG 渲染时容易出 □□)。
+
+```python
+from icon_lib import icon_svg, EMOJI_TO_ICON
+
+# 单个图标
+svg_str = icon_svg('chip', size=32, color='#2F80ED')
+
+# emoji → 图标映射(用于旧代码兼容)
+EMOJI_TO_ICON = {
+    '💡': 'lightbulb',  '📌': 'pin',     '✓': 'check',
+    '🔧': 'wrench',     '📊': 'chart',   '🚀': 'rocket',
+    ...
+}
+```
+
+图标清单:
+- **设备类**:chip(芯片), pcb(电路板), housing(外壳), fiber(光纤)
+- **光学类**:optic(光器件), material(材料)
+- **流程类**:flow, doc, design, components, integrate, test, ship
+- **场景类**:datacenter(数据中心), telecom(电信), cloud(云), ai(人工智能)
+- **辅助类**:arrow_right, check
+
+### draw_chain_v2.py(主图生成器)
+
+**PIL + cairosvg 混合方案**:
+- PIL 画布 + 文字 + 渐变 header + 阴影卡片
+- cairosvg 渲染 SVG 图标 → 字节 → PIL paste
+
+**两种预设模式**:
+
+```bash
+# 光模块产业链全景图
+python3 draw_chain_v2.py optical_module /tmp/out/optical.png
+
+# EML 国产替代产业链
+python3 draw_chain_v2.py eml_substitution /tmp/out/eml.png
+```
+
+**核心 API**:
+
+```python
+# 设计系统(DS dict)— 修改一处全局生效
+DS = {
+    'W': 1920, 'H': 1080, 'bg': '#FFFFFF',
+    'title_color': '#0B3A82', 'title_size': 44,
+    'blue': '#2F80ED', 'blue_dark': '#1E5BB8',
+    'cyan': '#00B8D9', 'green': '#22C55E', 'green_dark': '#16A34A',
+    ...
+}
+
+# 主函数签名
+def build_optical_module(out_path: str):
+    """生成光模块产业链全景图:三栏 + 介绍框 + 总结 + 投资要点"""
+
+def build_eml_substitution(out_path: str):
+    """生成 EML 国产替代产业链图:衬底 → 芯片 → 模块(红色卡脖子高亮)"""
+```
+
+**辅助函数**:
+
+```python
+font(size)                                  # 中文字体对象
+svg_to_pil(svg_str, size)                   # SVG → PIL Image
+draw_gradient_header(d, x, y, w, h, c1, c2) # 水平渐变 header
+draw_shadow_card(d, x, y, w, h, r=6)        # 阴影卡片
+draw_shadow_card_green(d, x, y, w, h, r=6)  # 绿色阴影卡片
+draw_shadow_card_red(d, x, y, w, h, r=6)    # 红色卡脖子卡片
+draw_icon_circle(im, d, x, y, size, name, c)# 圆形图标 + SVG
+card_template(im, d, x, y, w, h, icon, name, desc, stocks, color)
+                                            # 通用卡片(上游/下游)
+```
+
+### 复用步骤(给其他产业链)
+
+1. **复制 `draw_chain_v2.py`** 为 `draw_<your_chain>.py`
+2. **修改 DS 字典**(配色,字体大小)
+3. **写 `build_<your_chain>(out_path)`** 函数,顺序调用辅助函数
+4. **准备数据 list**:`(icon, name, desc, stocks)`
+5. **跑**:`python3 draw_<your_chain>.py <output.png>`
+
+### 故障排查
+
+| 症状 | 原因 | 解法 |
+|---|---|---|
+| 中文显示 □□ | 字体路径错 | 确认 `/home/ivanyinjc/.fonts/wqy-microhei.ttc` 存在 |
+| `ModuleNotFoundError: cairosvg` | pip 装错 venv | 用 `/home/ivanyinjc/.local/share/pipx/venvs/hermes-agent/bin/python` |
+| `AttributeError: NoneType.paste` | 漏传 Image | `draw_icon_circle(im, ...)` 第一个参数不能是 None |
+| SVG 解析报 not well-formed | 文本含 `&` | 调用前 `re.sub(r'&(?!(amp;\|lt;\|gt;)', '&amp;', text)` |
+| PNG < 100 KB | 中文 fallback | 检查字体加载是否成功 |
+

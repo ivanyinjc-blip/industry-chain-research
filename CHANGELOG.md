@@ -26,6 +26,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [3.3.0] - 2026-07-03
+
+### Added · 新增
+- ★ **PIL 产业链图生成器 v2**:`chain-chip-design/scripts/draw_chain_v2.py`(高保真 · 1920×1080 · 阴影卡片 · 渐变 header · 三栏布局)
+- ★ **18 个 SVG 图标库**:`chain-chip-design/scripts/icon_lib.py`(完全替代 emoji,跨平台一致 · chip/pcb/optic/housing/fiber/datacenter/ai/...)
+- ★ **EMOJI_TO_ICON 映射**:旧代码 emoji → SVG 图标的兼容垫片
+- ★ **设计语言沉淀**:`chain-chip-design/SKILL.md` 新增「产业链图生成系统」章节(设计 tokens · API · 复用步骤 · 故障排查)
+- ★ **2 张 v4 实战图**:光模块 / EML 国产替代(已发飞书用户确认效果)
+
+### Changed · 升级
+- **SKILL.md 升级到 v3.3**:总纲新增 v3.3 行 + 演进路线更新
+- **cairosvg 渲染管线**:PIL 画布 + cairosvg.svg2png(bytestring) → BytesIO → Image.open
+- **字体路径显式化**:`/home/ivanyinjc/.fonts/wqy-microhei.ttc`(避免 macOS/Linux fallback)
+- **draw_icon_circle 签名修复**:新增 `im` 形参(原传 None 导致 AttributeError)
+
+### Tested · 验证
+- 2 张图全部成功(optical-module-v4.png 232 KB · eml-substitution-v4.png 215 KB)
+- 中文渲染 100% 正确(无 □□)
+- 18 个图标在 PNG 中正常显示(无 fallback)
+
 ## [3.2.0] - 2026-07-02
 
 ### Added · 新增
@@ -80,6 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **11 词法**:navigate / modal / confirm / drawer / popover / bottomsheet / toast / inline-expand / inline-edit / newtab / download
 - **四度评分**:流变重构 / 成本坍缩 / 人即环境 / 可验证黑盒
 
+[3.3.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.3.0
 [3.1.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.1.0
 [3.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.0.0
 [2.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v2.0.0

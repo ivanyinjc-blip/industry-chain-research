@@ -3,7 +3,7 @@ name: industry-chain-research
 description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」Design-by-Contract 思想 + harrischen/invest 多因子评分 + zhangmusinb/gushifenxi 深度研究方法,形成「周期 × 缺口 × 政策」三角定位法的独特方法论。每段输入=上段产物,实现"结论=证据"的全链路对齐。包含三层价值量(成本/利润/瓶颈)、三类缺口(瓶颈/增量/国产替代/新需求)、反证条件、跟踪指标。聚焦 A 股 + 港股 + 美股产业链投研。
 ---
 
-# 产业链深度研究 Skill · 8+1 段对齐(2026-07-02 v3.2 升级)
+# 产业链深度研究 Skill · 8+1 段对齐(2026-07-03 v3.3 升级)
 
 > 灵感来源:
 > 1. 微信公众号「爱AI的大刘」《齐码.SKILL》(2026-06)— 6 段对齐架构
@@ -275,7 +275,8 @@ description: 产业链深度研究 8 段对齐 skill。借鉴「齐码.SKILL」D
 - **v2 (2026-07-02)**:7 段(新增 chain-stockmap)+ 借鉴落地 + 氟化工案例
 - **v3 (2026-07-02)**:8 段(新增 chain-cycle)+ 三角定位法 + 猪肉案例 + 创新药案例
 - **v3.1 (2026-07-02)**:★ 新增「格式选择卡」末段交付(report.md → HTML/DOCX 二选一)
-- **v3.2 (2026-07-02)**:★ 新增「chain-chip-design」工艺路线子段(device physics 拆解 + 良率爬升 + mermaid 产业链图)+ 光模块 + EML 国产替代双案例完整跑通 ← **当前**
+- **v3.2 (2026-07-02)**:★ 新增「chain-chip-design」工艺路线子段(device physics 拆解 + 良率爬升 + mermaid 产业链图)+ 光模块 + EML 国产替代双案例完整跑通
+- **v3.3 (2026-07-03)**:★ 产业链图生成系统升级为 PIL + cairosvg 高保真版 + 18 个 SVG 图标库(替代 emoji)+ chain-chip-design/SKILL.md 沉淀设计语言 + 复用模板 ← **当前**
 - **v4 预研方向**:
   - fetch_stock.py 接港股 18A API(fetch_hk_stock.py)
   - LLM-driven 周期拐点预测
