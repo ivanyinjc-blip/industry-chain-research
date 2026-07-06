@@ -442,3 +442,108 @@ python3 chain-chip-design/scripts/draw_chain_v2.py \
 
 详细说明见:[chain-chip-design/SKILL.md · 产业链图生成系统](chain-chip-design/SKILL.md)
 
+
+---
+
+## 🆕 v4.0 更新(2026-07-06)· 兑现度筛选
+
+### 痛点
+v3.x 给的 10 只候选股只有"评分",**没有回答"哪些已经兑现了"** → 容易推荐到 Q1 同行抢筹高位股 → 用户买了就吃回调。
+
+### 解法
+**chain-settlement 4 象限分类**(7.5 段 · P0):
+
+| 象限 | 含义 | 处理 |
+|---|---|---|
+| **Q1 同行抢筹** | Ps ≥ 6 + Pf ≥ 6 | ⚠️ 警惕追高 |
+| **Q2 兑现期** | Ps ≥ 6 + Pf < 6 | ❌ 规避 |
+| **Q3 价值洼地** ★ | Ps < 6 + Pf ≥ 6 | ✅ **关注池** |
+| **Q4 潜伏** | Ps < 6 + Pf < 6 | 🔍 观察池 |
+
+**评分公式**:`S = 0.6 × Ps(股价兑现) + 0.4 × Pf(业绩兑现)`
+- `Ps(0-10)`:12M 涨幅 vs 行业中位数
+- `Pf(0-10)`:0.5 × 扣非 12M 增速 + 0.5 × 经营现金流 12M 同比
+
+### 数据访问加固
+- **引擎层只读**:`duckdb.connect(DB_PATH, read_only=True)`
+- **审计日志**:每次 exit 打印 `[DuckDB-AUDIT] 本次发起 N 个 SELECT,无可写操作`
+- 拒绝 `INSERT` / `UPDATE` / `CREATE` / `DELETE` / `ATTACH`
+
+### 实战案例(机器人产业链)
+- **关注池 Q3**:鸣志电器(S=5.99) + 汇川技术(S=5.87)
+- **警惕池 Q1**:绿的谐波 +314% / 埃斯顿 +143% 等 7 只
+
+---
+
+## 🆕 v4.1 更新(2026-07-06)· ★ 行业雷达 · 当前版本 ★★
+
+### 痛点
+**用户上来就"研究点啥好"** → 没人能给推荐 → 凭感觉选 → 行业研究做了 8 段但选错赛道 → 全部白做。
+
+### 解法
+**chain-radar 行业雷达(第 0 段)**:自动扫 1,561 只被动指数型 ETF → 三轴评分筛出 Top 1-2 行业 → 再走后续 8 段。
+
+### 三轴评分
+- **景气(40%)**:12M 涨幅 → [-25%, +25%] 映射 [0, 10]
+- **趋势(30%)**:6M 涨幅(绝对值)→ [-25%, +25%] 映射 [0, 10]
+- **拥挤反向(30%)**:1M 涨幅反向 → ≤-10% 给 10 分(超跌),≥+20% 给 0 分(过热)
+
+**综合公式**:`R = 0.4 × 景气 + 0.3 × 趋势 + 0.3 × 拥挤反向`
+
+### 评级映射
+- ★★★★★ R ≥ 7.5 且 12M > 5%
+- ★★★★ R ≥ 6.5
+- ★★★ R ≥ 5.0
+- ★★ R < 5.0 或 12M < -10%(规避)
+
+### 关键修复(趋势分 v1 → v2)
+- **v1 错误**:用 6M/12M 比率作为趋势分 → 当 12M 为负时比率反向上分
+  - 例:医药 -2% / -5.85% = 2.84 → 趋势分 8.5 → 排第一(违反直觉)
+- **v2 修复**:趋势分改为 6M 涨幅**绝对值**
+- **关键洞察**:**当 12M 是负数时,任何比率计算都会反向,必须用绝对值**
+
+### 实战扫描(2026-07-06)
+| 排名 | 行业 | 雷达分 | 12M | 1M | 评级 |
+|---|---|---|---|---|---|
+| 1 | **光伏** | **8.71** | +48.1% | -10.0% | ★★★★★ |
+| 2 | **AI** | **8.30** | +44.4% | +6.7% | ★★★★★ |
+| 3 | **储能/碳中和** | **8.18** | +35.1% | -4.2% | ★★★★★ |
+| 4 | **机器人/智造** | **7.96** | +44.9% | +9.5% | ★★★★★ |
+| 5 | 新能源车 | 7.31 | +17.6% | -2.8% | ★★★★ |
+| 6 | 周期资源 | 6.65 | +12.2% | -6.0% | ★★★★ |
+
+### 9 段对齐架构(v4.1)
+```
+chain-radar (v4.1 新增)
+  → chain-idea
+  → chain-data
+  → chain-chip-design (可选 · 半导体/光芯片)
+  → chain-breakdown
+  → chain-cycle (可选 · 强周期)
+  → chain-analysis
+  → chain-report
+  → chain-settlement (v4.0 P0 · 兑现度筛选)
+  → chain-stockmap
++ chain-verify(全程反证核销)
+```
+
+### 一键体验
+```bash
+# 1. 不知道研究哪个行业
+python3 chain-radar/scripts/fetch_radar_data.py
+python3 chain-radar/scripts/calc_radar_score.py /tmp/radar_raw.json /tmp/radar_scores.json
+python3 chain-radar/scripts/gen_radar_report.py /tmp/radar_scores.json /tmp/radar.md
+# → 选 Top 1-2 行业
+
+# 2. 进入 9 段流水线(以 AI 为例)
+# (按 segment 顺序跑 idea → data → breakdown → analysis → report → settlement → stockmap)
+```
+
+### 待办 / v5 预研
+- [ ] 港股 18A API 接入(`fetch_hk_stock.py` 完善)
+- [ ] LLM-driven 周期拐点预测
+- [ ] 多产业链横向对比矩阵
+- [ ] 飞书 webhook 自动跟踪(月度财报 + 公告)
+- [ ] PDF 输出(weasyprint / wkhtmltopdf)
+
+详细见 [CHANGELOG.md](CHANGELOG.md) 和 [docs/releases/v4.1.md](docs/releases/v4.1.md)。

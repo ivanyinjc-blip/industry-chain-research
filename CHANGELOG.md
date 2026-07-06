@@ -5,6 +5,59 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2026-07-06 · ★ 行业雷达段(第 0 段)
+
+### Added · 新增
+- ★ **chain-radar 行业雷达**(第 0 段) · 基于 1,561 只被动指数型 ETF 的「景气 × 趋势 × 拥挤反向」三轴评分
+  - 三轴评分:景气 12M (40%) / 趋势 6M (30%) / 拥挤反向 1M (30%)
+  - 评级映射:★★★★★ R≥7.5 + 12M>5% | ★★★★ R≥6.5 | ★★★ R≥5.0 | ★★ R<5.0 或 12M<-10%
+  - SKILL.md(方法论 + 14 个重点行业)
+  - scripts/fetch_radar_data.py(DuckDB 只读扫描 1,561 只 ETF)
+  - scripts/calc_radar_score.py(三轴评分 + 评级映射)
+  - scripts/gen_radar_report.py(出 Markdown 报告)
+  - examples/radar-2026-07-06/(2026-07-06 扫描样本:光伏 8.71 · AI 8.30 · 储能 8.18 · 机器人 7.96)
+- ★ **数据访问加固**(沿用 v4.0):`_ReadOnlyDuckDB` + `duckdb.connect(DB_PATH, read_only=True)` + SQL 审计日志
+- ★ **总纲升级**:`SKILL.md` 加 chain-radar 第 0 段,9 段对齐架构图更新
+- **实战案例**:光伏 v4.1(雷达分 8.71 · 第 1)+ AI v4.1(雷达分 8.30 · 第 2)+ 储能 v4.1 + 机器人 v4.1
+
+### Fixed · 修复
+- **趋势分 v1 语义错误 → v2 修复**:v1 用 6M/12M 比率作为趋势分,12M 为负时比率反向上分(医药 -2% / -5.85% = 2.84 → 趋势分 8.5 → 排第一,违反直觉)
+  - v2 修复:趋势分改为 6M 涨幅**绝对值**,直接看绝对涨幅
+  - 关键洞察:当 12M 是负数时,任何比率计算都会反向,必须用绝对值
+
+### Verified · 实战验证
+- 扫描样本 1,561 只 ETF · 14 个重点行业 · 250 交易日窗口
+- 推荐研究 Top 4:光伏 / AI / 储能 / 机器人
+- 输出文件:radar.md(评分卡) + radar_scores.json(评分数据) + radar_raw.json(原始数据)
+
+## [4.0.0] - 2026-07-06 · ★ 兑现度筛选段(chain-settlement · P0)
+
+### Added · 新增
+- ★ **chain-settlement**(7.5 段 · P0) · 在 stockmap 候选清单上做 4 象限兑现度筛选
+  - 评分公式:`S = 0.6 × Ps(股价兑现) + 0.4 × Pf(业绩兑现)`
+  - 4 象限分类:Q1 同行抢筹(警惕追高)/ Q2 兑现期(规避)/ Q3 价值洼地(关注池 ★)/ Q4 潜伏(观察池)
+  - SKILL.md 增加「chain-settlement 子段」章节
+  - scripts/fetch_settlement_data.py(K线 + 季报 + 资金流 + 行业 ETF)
+  - scripts/calc_settlement_score.py(评分算法 + 4 象限分类)
+  - scripts/gen_settlement_report.py(出 Markdown 报告)
+  - templates/settlement.md.template
+  - examples/robot-case/settlement.md + settlement_data.json + settlement_scores.json
+- ★ **数据访问加固**:`_ReadOnlyDuckDB` 类强制只读 + 审计日志
+  - DuckDB 引擎层只读:`duckdb.connect(DB_PATH, read_only=True)`
+  - SQL 审计:每次 exit 打印 `[DuckDB-AUDIT] 本次发起 N 个 SELECT,无可写操作`
+  - 零依赖 `local_api.py` 是否被改
+  - 拒绝操作:`INSERT` / `UPDATE` / `CREATE` / `DELETE` / `ATTACH`
+
+### Verified · 实战验证(机器人产业链)
+- **关注池(Q3 价值洼地)**:鸣志电器(603728, S=5.99)+ 汇川技术(300124, S=5.87)
+- **警惕池(Q1 已充分兑现)**:绿的谐波 +314% / 埃斯顿 +143% / 奥普特 +76% / 恒立液压 +77% 等 7 只
+- **Q4 观察池**:秦川机床(业绩未兑现)
+
+### Changed · 升级
+- **SKILL.md 升级**:chain-stockmap 段加 settlement 子段
+- **8+1 段对齐 → 8+2 段对齐**:8 段 + chain-settlement 7.5 段 + chain-stockmap 8 段
+- 数据源:东财 push2his(直调)+ AKShare 季度财务 + Tushare DuckDB(只读)+ 东财 60 日主力净流入
+
 ## [3.1.0] - 2026-07-02
 
 ### Added · 新增
@@ -101,8 +154,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **11 词法**:navigate / modal / confirm / drawer / popover / bottomsheet / toast / inline-expand / inline-edit / newtab / download
 - **四度评分**:流变重构 / 成本坍缩 / 人即环境 / 可验证黑盒
 
-[3.3.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.3.0
+[4.1.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v4.1.0
+[4.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v4.0.0
 [3.4.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.4.0
+[3.3.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.3.0
+[3.2.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.2.0
 [3.1.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.1.0
 [3.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v3.0.0
 [2.0.0]: https://github.com/ivanyinjc-blip/industry-chain-research/releases/tag/v2.0.0

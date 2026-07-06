@@ -241,3 +241,140 @@ python3 scripts/fetch_stock.py us NVDA valuation
 - L1 精确:脚本返回 `status: ok` → `[腾讯/新浪API, 日期]`
 - L2 近似:脚本失败 + WebSearch 拿到 → `[搜索摘要, 日期, 可能存在偏差]`
 - L3 缺失:脚本 + 搜索均失败 → `N/A(获取失败)` + 评分取保守值
+
+---
+
+## 🆕 chain-settlement 子段(兑现度筛选 · 2026-07-06 v4 P0 新增)
+
+> 痛点:既有 stockmap 给的 10 只股票,只有"评分",没有回答"哪些已经兑现了"
+> 解法:在 stockmap 候选清单上做 4 象限筛选,提纯出真正值得关注池
+
+### 1. 兑现度评分算法
+
+```
+S(综合) = 0.6 × Ps(股价兑现) + 0.4 × Pf(业绩兑现)
+
+其中:
+- Ps(0-10):12M 涨幅 vs 行业中位数(中位数 = 5,超额 +100pp = 10)
+- Pf(0-10):0.5 × 扣非 12M 增速 + 0.5 × 经营现金流 12M 同比
+```
+
+### 2. 4 象限分类
+
+| 象限 | 含义 | 处理 |
+|---|---|---|
+| **Q1 同行抢筹** | Ps ≥ 6 + Pf ≥ 6(业绩兑现 + 股价兑现) | ⚠️ 警惕追高 |
+| **Q2 兑现期 / 终结期** | Ps ≥ 6 + Pf < 6(股价兑现但业绩未跟上) | ❌ 规避 |
+| **Q3 价值洼地** ★ | Ps < 6 + Pf ≥ 6(业绩兑现但股价未涨) | ✅ **关注池** |
+| **Q4 潜伏 / 没起来** | Ps < 6 + Pf < 6(业绩未兑现,市场未抢) | 🔍 观察池 |
+
+### 3. 兑现度反例
+
+筛选 `fund_flow > 1 亿(60 日)+ 涨幅 < 行业基准 + Pf ≥ 6` 的标的 = 资金已埋伏但股价未涨 = 强信号关注。
+
+### 4. 脚本与产物
+
+```
+chain-stockmap/
+├── scripts/
+│   ├── fetch_settlement_data.py  # 数据采集(K线/季报/资金流/行业 ETF)
+│   ├── calc_settlement_score.py  # 评分算法 + 4 象限分类
+│   └── gen_settlement_report.py  # 出 Markdown 报告
+├── templates/
+│   └── settlement.md.template    # 报告模板
+└── examples/
+    └── robot-case/
+        ├── settlement.md          # 机器人产业链样本报告
+        ├── settlement_data.json   # 全量原始数据
+        └── settlement_scores.json # 评分 + 关注池
+```
+
+### 5. 用法
+
+```bash
+# 1. 采集数据(从 stockmap.md 解析股票清单)
+python3 scripts/fetch_settlement_data.py \
+  /path/to/case/09-stockmap/stockmap.md \
+  /tmp/settlement_data.json \
+  562500.SH,159770.SZ,562360.SH,159258.SZ
+# ↑ 第三个参数:行业 ETF 基准列表(逗号分隔)
+
+# 2. 算评分
+python3 scripts/calc_settlement_score.py \
+  /tmp/settlement_data.json \
+  /tmp/settlement_scores.json
+
+# 3. 出报告
+python3 scripts/gen_settlement_report.py \
+  /tmp/settlement_scores.json \
+  /path/to/case/09-stockmap/settlement.md \
+  /path/to/case/09-stockmap/stockmap.md \
+  "机器人产业链"
+```
+
+### 6. 数据源(已确认全部接通)
+
+| 数据 | 源 |
+|---|---|
+| K 线 12M | 东财 push2his.eastmoney.com(直调) |
+| 4 季度财务 | AKShare stock_profit_sheet_by_quarterly_em + stock_cash_flow_sheet_by_quarterly_em |
+| 行业 ETF 基准 | Tushare DuckDB(本地数据库,见 ~/.local/share/tushare_pipeline/local_api.py) |
+| 60 日主力净流入 | 东财 push2his 资金流接口 |
+
+### 7. 与总框架的关系
+
+- **位置**:`chain-verify` 和 `chain-stockmap` 之间(第 7.5 段)— 即核销清单后、最终选股清单前
+- **输入**:`stockmap.md` 候选清单(10-30 只)
+- **输出**:`settlement.md`(包含 4 象限 + 关注池 + 反例 + 跟踪指标)
+- **建议**:在得到 stockmap.md 后**先**跑 settlement 筛选,再把 settlement.md 喂给用户作为最终选股交付
+
+### 8. 兑现度反例(参考 · 2026-07-06 机器人产业链案例)
+
+| 关注池(Q3 价值洼地) | S | 说明 |
+|---|---|---|
+| 鸣志电器(603728) | 5.99 | Ps=5.99 < 6(股价涨 23% < 行业 43%),Pf=6.0 ≥ 6(业绩兑现) |
+| 汇川技术(300124) | 5.87 | Ps=5.64, Pf=6.22 |
+
+**警惕池(Q1 已充分兑现)**:绿的谐波 +314%、埃斯顿 +143%、奥普特 +76%、恒立液压 +77% 等 7 只
+**Q4 观察池**:秦川机床(业绩未兑现)
+
+---
+
+## 🔒 数据访问约束(2026-07-06 加固)
+
+### DuckDB 只读访问(强约束)
+
+`fetch_settlement_data.py` 中的 `_ReadOnlyDuckDB` 类:
+- **强制** `duckdb.connect(DB_PATH, read_only=True)` — DuckDB 引擎级别写保护
+- **审计** 每次 exit 打印 `[DuckDB-AUDIT] 本次发起 N 个 SELECT,无可写操作`
+- **fallback** DB 失败立即走东财,不重试(避免无意中写入)
+- **零依赖** 不依赖 local_api.py 是否被改 — 自己建立只读连接
+
+DuckDB 引擎对 read_only 连接,所有 DDL/DML 都会被拒绝:
+
+```
+✓ SELECT OK
+✓ INSERT 被拒绝: InvalidInputException
+✓ UPDATE 被拒绝
+✓ CREATE 被拒绝
+✓ DELETE 被拒绝
+✓ ATTACH 被拒绝(避免"复制 DB"逃逸)
+```
+
+### 已验证(机器人产业链样本运行后)
+
+```
+[DuckDB-AUDIT] 本次发起 4 个 SELECT,无可写操作
+access_mode: read_only
+```
+
+### local_api.py 可选加固(待用户决定)
+
+`_ReadOnlyDuckDB` 已经足够安全,如果想让 4 个项目内所有脚本都默认只读,可在 `local_api.py` 顶部替换:
+
+```python
+def get_conn():
+    return duckdb.connect(str(DB_PATH), read_only=True)  # 加 read_only=True
+```
+
+这是用户的脚本,改动与否由你决定。 我会**建议**加但**不主动改**(我没有写权限)。
