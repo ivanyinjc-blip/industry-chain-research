@@ -1,0 +1,917 @@
+{
+  "meta": {
+    "scored_at": "2026-07-06T12:13:49.639498",
+    "benchmark_12m_pct_median": 13.79,
+    "benchmark_note": "隐含大盘基准 = 全部 ETF 12M 涨幅中位数",
+    "weights": {
+      "momentum": 0.4,
+      "trend": 0.3,
+      "crowd_inv": 0.3
+    },
+    "scoring_rules": {
+      "momentum": "12M 涨幅,[-25%, +25%] → [0, 10]",
+      "trend": "6M 涨幅,[-25%, +25%] → [0, 10](v2 改:不再用比率)",
+      "crowd_inv": "1M 涨幅反向,≤-10%→10(超跌),≥+20%→0(过热)"
+    },
+    "etf_count_threshold": 3,
+    "radar_focus_sectors": [
+      "AI",
+      "TMT/传媒",
+      "储能/碳中和",
+      "光伏",
+      "军工",
+      "农业",
+      "医药生物",
+      "半导体/科技",
+      "周期资源",
+      "地产基建",
+      "新能源车",
+      "机器人/智造",
+      "消费",
+      "金融"
+    ]
+  },
+  "sectors": [
+    {
+      "sector": "光伏",
+      "etf_count": 16,
+      "median_1m_pct": -10.03,
+      "median_3m_pct": -15.36,
+      "median_6m_pct": 3.5,
+      "median_12m_pct": 48.14,
+      "excess_vs_benchmark_pp": 34.35,
+      "score_momentum": 10.0,
+      "score_trend": 5.7,
+      "score_crowd_inv": 10.0,
+      "score_radar": 8.71,
+      "rating": "★★★★★ 强烈推荐",
+      "top_etfs": [
+        {
+          "ts_code": "560980.SH",
+          "name": "广发中证光伏龙头30ETF",
+          "ret_12m_pct": 74.02
+        },
+        {
+          "ts_code": "562970.SH",
+          "name": "易方达中证光伏产业ETF",
+          "ret_12m_pct": 52.54
+        },
+        {
+          "ts_code": "159864.SZ",
+          "name": "国泰中证光伏产业ETF",
+          "ret_12m_pct": 50.36
+        }
+      ]
+    },
+    {
+      "sector": "AI",
+      "etf_count": 39,
+      "median_1m_pct": 6.65,
+      "median_3m_pct": 26.08,
+      "median_6m_pct": 31.5,
+      "median_12m_pct": 44.42,
+      "excess_vs_benchmark_pp": 30.63,
+      "score_momentum": 10.0,
+      "score_trend": 10.0,
+      "score_crowd_inv": 4.34,
+      "score_radar": 8.3,
+      "rating": "★★★★★ 强烈推荐",
+      "top_etfs": [
+        {
+          "ts_code": "159382.SZ",
+          "name": "南方创业板人工智能ETF",
+          "ret_12m_pct": 186.58
+        },
+        {
+          "ts_code": "159242.SZ",
+          "name": "大成创业板人工智能ETF",
+          "ret_12m_pct": 140.95
+        },
+        {
+          "ts_code": "159819.SZ",
+          "name": "易方达中证人工智能主题ETF",
+          "ret_12m_pct": 122.95
+        }
+      ]
+    },
+    {
+      "sector": "储能/碳中和",
+      "etf_count": 26,
+      "median_1m_pct": -4.17,
+      "median_3m_pct": -4.95,
+      "median_6m_pct": 3.46,
+      "median_12m_pct": 35.15,
+      "excess_vs_benchmark_pp": 21.36,
+      "score_momentum": 10.0,
+      "score_trend": 5.69,
+      "score_crowd_inv": 8.25,
+      "score_radar": 8.18,
+      "rating": "★★★★★ 强烈推荐",
+      "top_etfs": [
+        {
+          "ts_code": "159861.SZ",
+          "name": "国泰中证环保产业50ETF",
+          "ret_12m_pct": 45.63
+        },
+        {
+          "ts_code": "516070.SH",
+          "name": "易方达中证内地低碳经济主题ETF",
+          "ret_12m_pct": 42.92
+        },
+        {
+          "ts_code": "512580.SH",
+          "name": "广发中证环保产业ETF",
+          "ret_12m_pct": 42.31
+        }
+      ]
+    },
+    {
+      "sector": "机器人/智造",
+      "etf_count": 15,
+      "median_1m_pct": 9.53,
+      "median_3m_pct": 28.8,
+      "median_6m_pct": 30.05,
+      "median_12m_pct": 44.86,
+      "excess_vs_benchmark_pp": 31.07,
+      "score_momentum": 10.0,
+      "score_trend": 10.0,
+      "score_crowd_inv": 3.19,
+      "score_radar": 7.96,
+      "rating": "★★★★★ 强烈推荐",
+      "top_etfs": [
+        {
+          "ts_code": "560630.SH",
+          "name": "万家中证机器人ETF",
+          "ret_12m_pct": 51.51
+        },
+        {
+          "ts_code": "159551.SZ",
+          "name": "国泰中证机器人ETF",
+          "ret_12m_pct": 48.67
+        },
+        {
+          "ts_code": "159526.SZ",
+          "name": "嘉实中证机器人ETF",
+          "ret_12m_pct": 48.2
+        }
+      ]
+    },
+    {
+      "sector": "新能源车",
+      "etf_count": 46,
+      "median_1m_pct": -2.75,
+      "median_3m_pct": 0.63,
+      "median_6m_pct": 0.98,
+      "median_12m_pct": 17.55,
+      "excess_vs_benchmark_pp": 3.76,
+      "score_momentum": 8.51,
+      "score_trend": 5.2,
+      "score_crowd_inv": 7.83,
+      "score_radar": 7.31,
+      "rating": "★★★★ 推荐",
+      "top_etfs": [
+        {
+          "ts_code": "159757.SZ",
+          "name": "景顺长城国证新能源车电池ETF",
+          "ret_12m_pct": 64.92
+        },
+        {
+          "ts_code": "159840.SZ",
+          "name": "工银瑞信国证新能源车电池ETF",
+          "ret_12m_pct": 64.18
+        },
+        {
+          "ts_code": "159755.SZ",
+          "name": "广发国证新能源车电池ETF",
+          "ret_12m_pct": 63.98
+        }
+      ]
+    },
+    {
+      "sector": "周期资源",
+      "etf_count": 57,
+      "median_1m_pct": -6.01,
+      "median_3m_pct": -13.62,
+      "median_6m_pct": -7.71,
+      "median_12m_pct": 12.17,
+      "excess_vs_benchmark_pp": -1.62,
+      "score_momentum": 7.43,
+      "score_trend": 3.46,
+      "score_crowd_inv": 8.8,
+      "score_radar": 6.65,
+      "rating": "★★★★ 推荐",
+      "top_etfs": [
+        {
+          "ts_code": "560860.SH",
+          "name": "万家中证工业有色金属主题ETF",
+          "ret_12m_pct": 88.67
+        },
+        {
+          "ts_code": "159690.SZ",
+          "name": "招商中证有色金属矿业主题ETF",
+          "ret_12m_pct": 77.08
+        },
+        {
+          "ts_code": "159880.SZ",
+          "name": "鹏华国证有色金属行业ETF",
+          "ret_12m_pct": 72.26
+        }
+      ]
+    },
+    {
+      "sector": "军工",
+      "etf_count": 27,
+      "median_1m_pct": 0.94,
+      "median_3m_pct": -8.61,
+      "median_6m_pct": -0.51,
+      "median_12m_pct": 8.81,
+      "excess_vs_benchmark_pp": -4.98,
+      "score_momentum": 6.76,
+      "score_trend": 4.9,
+      "score_crowd_inv": 6.62,
+      "score_radar": 6.16,
+      "rating": "★★★ 中性",
+      "top_etfs": [
+        {
+          "ts_code": "512560.SH",
+          "name": "易方达中证军工ETF",
+          "ret_12m_pct": 26.16
+        },
+        {
+          "ts_code": "502003.SH",
+          "name": "易方达中证军工指数(LOF)-A",
+          "ret_12m_pct": 24.31
+        },
+        {
+          "ts_code": "512660.SH",
+          "name": "国泰中证军工ETF",
+          "ret_12m_pct": 23.32
+        }
+      ]
+    },
+    {
+      "sector": "半导体/科技",
+      "etf_count": 224,
+      "median_1m_pct": 0.66,
+      "median_3m_pct": 3.33,
+      "median_6m_pct": 1.99,
+      "median_12m_pct": 2.13,
+      "excess_vs_benchmark_pp": -11.66,
+      "score_momentum": 5.43,
+      "score_trend": 5.4,
+      "score_crowd_inv": 6.74,
+      "score_radar": 5.81,
+      "rating": "★★★ 中性",
+      "top_etfs": [
+        {
+          "ts_code": "513310.SH",
+          "name": "华泰柏瑞中证韩交所中韩半导体ETF(QDII)",
+          "ret_12m_pct": 287.24
+        },
+        {
+          "ts_code": "588170.SH",
+          "name": "华夏上证科创板半导体材料设备主题ETF",
+          "ret_12m_pct": 277.13
+        },
+        {
+          "ts_code": "588710.SH",
+          "name": "华泰柏瑞上证科创板半导体材料设备主题ETF",
+          "ret_12m_pct": 275.87
+        }
+      ]
+    },
+    {
+      "sector": "金融",
+      "etf_count": 116,
+      "median_1m_pct": 0.73,
+      "median_3m_pct": 3.2,
+      "median_6m_pct": -3.31,
+      "median_12m_pct": 5.44,
+      "excess_vs_benchmark_pp": -8.35,
+      "score_momentum": 6.09,
+      "score_trend": 4.34,
+      "score_crowd_inv": 6.71,
+      "score_radar": 5.75,
+      "rating": "★★★ 中性",
+      "top_etfs": [
+        {
+          "ts_code": "165522.SZ",
+          "name": "中信保诚中证TMT产业主题指数(LOF)-A",
+          "ret_12m_pct": 98.64
+        },
+        {
+          "ts_code": "159821.SZ",
+          "name": "中银证券创业板ETF",
+          "ret_12m_pct": 98.17
+        },
+        {
+          "ts_code": "161031.SZ",
+          "name": "富国中证工业4.0指数-A",
+          "ret_12m_pct": 92.52
+        }
+      ]
+    },
+    {
+      "sector": "地产基建",
+      "etf_count": 19,
+      "median_1m_pct": -5.61,
+      "median_3m_pct": -10.63,
+      "median_6m_pct": -7.69,
+      "median_12m_pct": 0.98,
+      "excess_vs_benchmark_pp": -12.81,
+      "score_momentum": 5.2,
+      "score_trend": 3.46,
+      "score_crowd_inv": 8.68,
+      "score_radar": 5.72,
+      "rating": "★★★ 中性",
+      "top_etfs": [
+        {
+          "ts_code": "561130.SH",
+          "name": "富国中证新华社民族品牌工程ETF",
+          "ret_12m_pct": 46.41
+        },
+        {
+          "ts_code": "560280.SH",
+          "name": "广发中证工程机械主题ETF",
+          "ret_12m_pct": 26.86
+        },
+        {
+          "ts_code": "159542.SZ",
+          "name": "大成中证工程机械主题ETF",
+          "ret_12m_pct": 25.62
+        }
+      ]
+    },
+    {
+      "sector": "医药生物",
+      "etf_count": 93,
+      "median_1m_pct": 4.53,
+      "median_3m_pct": -1.62,
+      "median_6m_pct": -5.85,
+      "median_12m_pct": -2.06,
+      "excess_vs_benchmark_pp": -15.85,
+      "score_momentum": 4.59,
+      "score_trend": 3.83,
+      "score_crowd_inv": 5.19,
+      "score_radar": 4.54,
+      "rating": "★★ 规避",
+      "top_etfs": [
+        {
+          "ts_code": "517380.SH",
+          "name": "天弘恒生沪深港创新药精选50ETF",
+          "ret_12m_pct": 21.26
+        },
+        {
+          "ts_code": "501005.SH",
+          "name": "汇添富中证精准医疗主题指数(LOF)-A",
+          "ret_12m_pct": 16.39
+        },
+        {
+          "ts_code": "517120.SH",
+          "name": "华泰柏瑞中证沪港深创新药产业ETF",
+          "ret_12m_pct": 15.6
+        }
+      ]
+    },
+    {
+      "sector": "农业",
+      "etf_count": 23,
+      "median_1m_pct": -6.11,
+      "median_3m_pct": -16.3,
+      "median_6m_pct": -15.96,
+      "median_12m_pct": -13.15,
+      "excess_vs_benchmark_pp": -26.94,
+      "score_momentum": 2.37,
+      "score_trend": 1.81,
+      "score_crowd_inv": 8.83,
+      "score_radar": 4.14,
+      "rating": "★★ 规避",
+      "top_etfs": [
+        {
+          "ts_code": "159616.SZ",
+          "name": "建信中证农牧主题ETF",
+          "ret_12m_pct": 3.49
+        },
+        {
+          "ts_code": "516550.SH",
+          "name": "嘉实中证大农业ETF",
+          "ret_12m_pct": 1.05
+        },
+        {
+          "ts_code": "516810.SH",
+          "name": "华夏中证农业主题ETF",
+          "ret_12m_pct": -3.01
+        }
+      ]
+    },
+    {
+      "sector": "TMT/传媒",
+      "etf_count": 45,
+      "median_1m_pct": -9.49,
+      "median_3m_pct": -16.72,
+      "median_6m_pct": -20.11,
+      "median_12m_pct": -17.37,
+      "excess_vs_benchmark_pp": -31.16,
+      "score_momentum": 1.53,
+      "score_trend": 0.98,
+      "score_crowd_inv": 9.85,
+      "score_radar": 3.86,
+      "rating": "★★ 规避",
+      "top_etfs": [
+        {
+          "ts_code": "159811.SZ",
+          "name": "博时中证5G产业50ETF",
+          "ret_12m_pct": 186.99
+        },
+        {
+          "ts_code": "159695.SZ",
+          "name": "嘉实国证通信ETF",
+          "ret_12m_pct": 168.36
+        },
+        {
+          "ts_code": "159511.SZ",
+          "name": "南方中证通信服务ETF",
+          "ret_12m_pct": 140.15
+        }
+      ]
+    },
+    {
+      "sector": "消费",
+      "etf_count": 57,
+      "median_1m_pct": -5.8,
+      "median_3m_pct": -11.26,
+      "median_6m_pct": -16.46,
+      "median_12m_pct": -15.93,
+      "excess_vs_benchmark_pp": -29.72,
+      "score_momentum": 1.81,
+      "score_trend": 1.71,
+      "score_crowd_inv": 8.74,
+      "score_radar": 3.86,
+      "rating": "★★ 规避",
+      "top_etfs": [
+        {
+          "ts_code": "515920.SH",
+          "name": "博时中证智能消费主题ETF",
+          "ret_12m_pct": 66.9
+        },
+        {
+          "ts_code": "159328.SZ",
+          "name": "易方达中证家电龙头ETF",
+          "ret_12m_pct": 12.26
+        },
+        {
+          "ts_code": "159730.SZ",
+          "name": "博时国证龙头家电ETF",
+          "ret_12m_pct": 10.3
+        }
+      ]
+    }
+  ],
+  "buckets": {
+    "strong_buy": [
+      {
+        "sector": "光伏",
+        "etf_count": 16,
+        "median_1m_pct": -10.03,
+        "median_3m_pct": -15.36,
+        "median_6m_pct": 3.5,
+        "median_12m_pct": 48.14,
+        "excess_vs_benchmark_pp": 34.35,
+        "score_momentum": 10.0,
+        "score_trend": 5.7,
+        "score_crowd_inv": 10.0,
+        "score_radar": 8.71,
+        "rating": "★★★★★ 强烈推荐",
+        "top_etfs": [
+          {
+            "ts_code": "560980.SH",
+            "name": "广发中证光伏龙头30ETF",
+            "ret_12m_pct": 74.02
+          },
+          {
+            "ts_code": "562970.SH",
+            "name": "易方达中证光伏产业ETF",
+            "ret_12m_pct": 52.54
+          },
+          {
+            "ts_code": "159864.SZ",
+            "name": "国泰中证光伏产业ETF",
+            "ret_12m_pct": 50.36
+          }
+        ]
+      },
+      {
+        "sector": "AI",
+        "etf_count": 39,
+        "median_1m_pct": 6.65,
+        "median_3m_pct": 26.08,
+        "median_6m_pct": 31.5,
+        "median_12m_pct": 44.42,
+        "excess_vs_benchmark_pp": 30.63,
+        "score_momentum": 10.0,
+        "score_trend": 10.0,
+        "score_crowd_inv": 4.34,
+        "score_radar": 8.3,
+        "rating": "★★★★★ 强烈推荐",
+        "top_etfs": [
+          {
+            "ts_code": "159382.SZ",
+            "name": "南方创业板人工智能ETF",
+            "ret_12m_pct": 186.58
+          },
+          {
+            "ts_code": "159242.SZ",
+            "name": "大成创业板人工智能ETF",
+            "ret_12m_pct": 140.95
+          },
+          {
+            "ts_code": "159819.SZ",
+            "name": "易方达中证人工智能主题ETF",
+            "ret_12m_pct": 122.95
+          }
+        ]
+      },
+      {
+        "sector": "储能/碳中和",
+        "etf_count": 26,
+        "median_1m_pct": -4.17,
+        "median_3m_pct": -4.95,
+        "median_6m_pct": 3.46,
+        "median_12m_pct": 35.15,
+        "excess_vs_benchmark_pp": 21.36,
+        "score_momentum": 10.0,
+        "score_trend": 5.69,
+        "score_crowd_inv": 8.25,
+        "score_radar": 8.18,
+        "rating": "★★★★★ 强烈推荐",
+        "top_etfs": [
+          {
+            "ts_code": "159861.SZ",
+            "name": "国泰中证环保产业50ETF",
+            "ret_12m_pct": 45.63
+          },
+          {
+            "ts_code": "516070.SH",
+            "name": "易方达中证内地低碳经济主题ETF",
+            "ret_12m_pct": 42.92
+          },
+          {
+            "ts_code": "512580.SH",
+            "name": "广发中证环保产业ETF",
+            "ret_12m_pct": 42.31
+          }
+        ]
+      },
+      {
+        "sector": "机器人/智造",
+        "etf_count": 15,
+        "median_1m_pct": 9.53,
+        "median_3m_pct": 28.8,
+        "median_6m_pct": 30.05,
+        "median_12m_pct": 44.86,
+        "excess_vs_benchmark_pp": 31.07,
+        "score_momentum": 10.0,
+        "score_trend": 10.0,
+        "score_crowd_inv": 3.19,
+        "score_radar": 7.96,
+        "rating": "★★★★★ 强烈推荐",
+        "top_etfs": [
+          {
+            "ts_code": "560630.SH",
+            "name": "万家中证机器人ETF",
+            "ret_12m_pct": 51.51
+          },
+          {
+            "ts_code": "159551.SZ",
+            "name": "国泰中证机器人ETF",
+            "ret_12m_pct": 48.67
+          },
+          {
+            "ts_code": "159526.SZ",
+            "name": "嘉实中证机器人ETF",
+            "ret_12m_pct": 48.2
+          }
+        ]
+      }
+    ],
+    "buy": [
+      {
+        "sector": "新能源车",
+        "etf_count": 46,
+        "median_1m_pct": -2.75,
+        "median_3m_pct": 0.63,
+        "median_6m_pct": 0.98,
+        "median_12m_pct": 17.55,
+        "excess_vs_benchmark_pp": 3.76,
+        "score_momentum": 8.51,
+        "score_trend": 5.2,
+        "score_crowd_inv": 7.83,
+        "score_radar": 7.31,
+        "rating": "★★★★ 推荐",
+        "top_etfs": [
+          {
+            "ts_code": "159757.SZ",
+            "name": "景顺长城国证新能源车电池ETF",
+            "ret_12m_pct": 64.92
+          },
+          {
+            "ts_code": "159840.SZ",
+            "name": "工银瑞信国证新能源车电池ETF",
+            "ret_12m_pct": 64.18
+          },
+          {
+            "ts_code": "159755.SZ",
+            "name": "广发国证新能源车电池ETF",
+            "ret_12m_pct": 63.98
+          }
+        ]
+      },
+      {
+        "sector": "周期资源",
+        "etf_count": 57,
+        "median_1m_pct": -6.01,
+        "median_3m_pct": -13.62,
+        "median_6m_pct": -7.71,
+        "median_12m_pct": 12.17,
+        "excess_vs_benchmark_pp": -1.62,
+        "score_momentum": 7.43,
+        "score_trend": 3.46,
+        "score_crowd_inv": 8.8,
+        "score_radar": 6.65,
+        "rating": "★★★★ 推荐",
+        "top_etfs": [
+          {
+            "ts_code": "560860.SH",
+            "name": "万家中证工业有色金属主题ETF",
+            "ret_12m_pct": 88.67
+          },
+          {
+            "ts_code": "159690.SZ",
+            "name": "招商中证有色金属矿业主题ETF",
+            "ret_12m_pct": 77.08
+          },
+          {
+            "ts_code": "159880.SZ",
+            "name": "鹏华国证有色金属行业ETF",
+            "ret_12m_pct": 72.26
+          }
+        ]
+      }
+    ],
+    "neutral": [
+      {
+        "sector": "军工",
+        "etf_count": 27,
+        "median_1m_pct": 0.94,
+        "median_3m_pct": -8.61,
+        "median_6m_pct": -0.51,
+        "median_12m_pct": 8.81,
+        "excess_vs_benchmark_pp": -4.98,
+        "score_momentum": 6.76,
+        "score_trend": 4.9,
+        "score_crowd_inv": 6.62,
+        "score_radar": 6.16,
+        "rating": "★★★ 中性",
+        "top_etfs": [
+          {
+            "ts_code": "512560.SH",
+            "name": "易方达中证军工ETF",
+            "ret_12m_pct": 26.16
+          },
+          {
+            "ts_code": "502003.SH",
+            "name": "易方达中证军工指数(LOF)-A",
+            "ret_12m_pct": 24.31
+          },
+          {
+            "ts_code": "512660.SH",
+            "name": "国泰中证军工ETF",
+            "ret_12m_pct": 23.32
+          }
+        ]
+      },
+      {
+        "sector": "半导体/科技",
+        "etf_count": 224,
+        "median_1m_pct": 0.66,
+        "median_3m_pct": 3.33,
+        "median_6m_pct": 1.99,
+        "median_12m_pct": 2.13,
+        "excess_vs_benchmark_pp": -11.66,
+        "score_momentum": 5.43,
+        "score_trend": 5.4,
+        "score_crowd_inv": 6.74,
+        "score_radar": 5.81,
+        "rating": "★★★ 中性",
+        "top_etfs": [
+          {
+            "ts_code": "513310.SH",
+            "name": "华泰柏瑞中证韩交所中韩半导体ETF(QDII)",
+            "ret_12m_pct": 287.24
+          },
+          {
+            "ts_code": "588170.SH",
+            "name": "华夏上证科创板半导体材料设备主题ETF",
+            "ret_12m_pct": 277.13
+          },
+          {
+            "ts_code": "588710.SH",
+            "name": "华泰柏瑞上证科创板半导体材料设备主题ETF",
+            "ret_12m_pct": 275.87
+          }
+        ]
+      },
+      {
+        "sector": "金融",
+        "etf_count": 116,
+        "median_1m_pct": 0.73,
+        "median_3m_pct": 3.2,
+        "median_6m_pct": -3.31,
+        "median_12m_pct": 5.44,
+        "excess_vs_benchmark_pp": -8.35,
+        "score_momentum": 6.09,
+        "score_trend": 4.34,
+        "score_crowd_inv": 6.71,
+        "score_radar": 5.75,
+        "rating": "★★★ 中性",
+        "top_etfs": [
+          {
+            "ts_code": "165522.SZ",
+            "name": "中信保诚中证TMT产业主题指数(LOF)-A",
+            "ret_12m_pct": 98.64
+          },
+          {
+            "ts_code": "159821.SZ",
+            "name": "中银证券创业板ETF",
+            "ret_12m_pct": 98.17
+          },
+          {
+            "ts_code": "161031.SZ",
+            "name": "富国中证工业4.0指数-A",
+            "ret_12m_pct": 92.52
+          }
+        ]
+      },
+      {
+        "sector": "地产基建",
+        "etf_count": 19,
+        "median_1m_pct": -5.61,
+        "median_3m_pct": -10.63,
+        "median_6m_pct": -7.69,
+        "median_12m_pct": 0.98,
+        "excess_vs_benchmark_pp": -12.81,
+        "score_momentum": 5.2,
+        "score_trend": 3.46,
+        "score_crowd_inv": 8.68,
+        "score_radar": 5.72,
+        "rating": "★★★ 中性",
+        "top_etfs": [
+          {
+            "ts_code": "561130.SH",
+            "name": "富国中证新华社民族品牌工程ETF",
+            "ret_12m_pct": 46.41
+          },
+          {
+            "ts_code": "560280.SH",
+            "name": "广发中证工程机械主题ETF",
+            "ret_12m_pct": 26.86
+          },
+          {
+            "ts_code": "159542.SZ",
+            "name": "大成中证工程机械主题ETF",
+            "ret_12m_pct": 25.62
+          }
+        ]
+      }
+    ],
+    "avoid": [
+      {
+        "sector": "医药生物",
+        "etf_count": 93,
+        "median_1m_pct": 4.53,
+        "median_3m_pct": -1.62,
+        "median_6m_pct": -5.85,
+        "median_12m_pct": -2.06,
+        "excess_vs_benchmark_pp": -15.85,
+        "score_momentum": 4.59,
+        "score_trend": 3.83,
+        "score_crowd_inv": 5.19,
+        "score_radar": 4.54,
+        "rating": "★★ 规避",
+        "top_etfs": [
+          {
+            "ts_code": "517380.SH",
+            "name": "天弘恒生沪深港创新药精选50ETF",
+            "ret_12m_pct": 21.26
+          },
+          {
+            "ts_code": "501005.SH",
+            "name": "汇添富中证精准医疗主题指数(LOF)-A",
+            "ret_12m_pct": 16.39
+          },
+          {
+            "ts_code": "517120.SH",
+            "name": "华泰柏瑞中证沪港深创新药产业ETF",
+            "ret_12m_pct": 15.6
+          }
+        ]
+      },
+      {
+        "sector": "农业",
+        "etf_count": 23,
+        "median_1m_pct": -6.11,
+        "median_3m_pct": -16.3,
+        "median_6m_pct": -15.96,
+        "median_12m_pct": -13.15,
+        "excess_vs_benchmark_pp": -26.94,
+        "score_momentum": 2.37,
+        "score_trend": 1.81,
+        "score_crowd_inv": 8.83,
+        "score_radar": 4.14,
+        "rating": "★★ 规避",
+        "top_etfs": [
+          {
+            "ts_code": "159616.SZ",
+            "name": "建信中证农牧主题ETF",
+            "ret_12m_pct": 3.49
+          },
+          {
+            "ts_code": "516550.SH",
+            "name": "嘉实中证大农业ETF",
+            "ret_12m_pct": 1.05
+          },
+          {
+            "ts_code": "516810.SH",
+            "name": "华夏中证农业主题ETF",
+            "ret_12m_pct": -3.01
+          }
+        ]
+      },
+      {
+        "sector": "TMT/传媒",
+        "etf_count": 45,
+        "median_1m_pct": -9.49,
+        "median_3m_pct": -16.72,
+        "median_6m_pct": -20.11,
+        "median_12m_pct": -17.37,
+        "excess_vs_benchmark_pp": -31.16,
+        "score_momentum": 1.53,
+        "score_trend": 0.98,
+        "score_crowd_inv": 9.85,
+        "score_radar": 3.86,
+        "rating": "★★ 规避",
+        "top_etfs": [
+          {
+            "ts_code": "159811.SZ",
+            "name": "博时中证5G产业50ETF",
+            "ret_12m_pct": 186.99
+          },
+          {
+            "ts_code": "159695.SZ",
+            "name": "嘉实国证通信ETF",
+            "ret_12m_pct": 168.36
+          },
+          {
+            "ts_code": "159511.SZ",
+            "name": "南方中证通信服务ETF",
+            "ret_12m_pct": 140.15
+          }
+        ]
+      },
+      {
+        "sector": "消费",
+        "etf_count": 57,
+        "median_1m_pct": -5.8,
+        "median_3m_pct": -11.26,
+        "median_6m_pct": -16.46,
+        "median_12m_pct": -15.93,
+        "excess_vs_benchmark_pp": -29.72,
+        "score_momentum": 1.81,
+        "score_trend": 1.71,
+        "score_crowd_inv": 8.74,
+        "score_radar": 3.86,
+        "rating": "★★ 规避",
+        "top_etfs": [
+          {
+            "ts_code": "515920.SH",
+            "name": "博时中证智能消费主题ETF",
+            "ret_12m_pct": 66.9
+          },
+          {
+            "ts_code": "159328.SZ",
+            "name": "易方达中证家电龙头ETF",
+            "ret_12m_pct": 12.26
+          },
+          {
+            "ts_code": "159730.SZ",
+            "name": "博时国证龙头家电ETF",
+            "ret_12m_pct": 10.3
+          }
+        ]
+      }
+    ]
+  },
+  "all_sector_count": 14,
+  "strong_buy_count": 4,
+  "buy_count": 2
+}

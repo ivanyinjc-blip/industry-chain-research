@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual env
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Tushare / API secrets(绝不入库)
+.env
+.env.local
+*.key
+*.pem
+.tushare_token
+config.local.json
+
+# 临时输出(本地案例跑出来的 raw data)
+examples/*/raw_*.json
+examples/*/tmp_*.json
+/tmp/
+
+# 大量测试输出
+*.log
+logs/
+
+# 链图生成的临时 HTML(每个 case 单独保留 final 版)
+chain-chip-design/examples/*/draft_*.html
+
+# Coverage
+.coverage
+htmlcov/
+coverage.xml
+.pytest_cache/
+.ruff_cache/

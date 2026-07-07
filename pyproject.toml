@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "industry-chain-research"
+version = "4.1.1"
+description = "产业链深度研究 9 段对齐 skill - A股/港股/美股投研流程模板"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Claude Agent (阿超投资助理)", email = "noreply@anthropic.com"}
+]
+keywords = ["产业链", "投研", "skill", "agent"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# 运行时依赖(同步 requirements.txt,不要单边修改)
+dependencies = [
+    "requests>=2.31.0,<3.0",
+    "akshare>=1.13.0,<2.0",
+    "tushare>=1.4.0,<2.0",
+    "duckdb>=0.10.0,<1.0",
+    "pandas>=2.0.0,<3.0",
+    "numpy>=1.24.0,<3.0",
+    "Pillow>=10.0.0,<12.0",
+    "cairosvg>=2.7.0,<3.0",
+    "markdown>=3.5.0,<4.0",
+    "pyyaml>=6.0.0,<7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0,<9.0",
+    "pytest-cov>=4.1.0,<5.0",
+    "ruff>=0.1.0,<1.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ivanyinjc-blip/industry-chain-research"
+"Bug Tracker" = "https://github.com/ivanyinjc-blip/industry-chain-research/issues"
+
+[tool.setuptools]
+packages = []
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = [
+    "E501",  # line-too-long (中文行宽灵活)
+    "B008",  # function call in default argument
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: 标记耗时超过 5 秒的测试",
+    "network: 需要网络访问的测试",
+    "db: 需要本地 tushare DuckDB 的测试",
+]

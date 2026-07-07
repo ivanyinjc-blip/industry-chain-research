@@ -1,0 +1,15 @@
+# chain-stockmap 数据获取依赖
+# 基础:Python 3.8+
+# 行情 API:腾讯/新浪(本 skill 自带,无需额外依赖)
+
+# 财务/估值/技术面数据(AKShare 推荐)
+akshare>=1.12.0
+pandas>=2.0.0
+numpy>=1.24.0
+requests>=2.28.0
+
+# Tushare(可选,需 token)
+# tushare>=1.4.0
+
+# 美股(可选)
+# yfinance>=0.2.30
